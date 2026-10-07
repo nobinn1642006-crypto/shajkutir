@@ -1,0 +1,18 @@
+{
+  "name": "ShajKutir - Puja Saree Collection 2026",
+  "short_name": "ShajKutir",
+  "description": "Exclusive Durga Puja 2026 Saree Collection. Cash on Delivery across Bangladesh.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#12100E",
+  "theme_color": "#4A0E17",
+  "icons": [
+    {
+      "src": "images/logo/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

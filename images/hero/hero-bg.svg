@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <radialGradient id="bgGlow" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#4A0E17" />
+      <stop offset="60%" stop-color="#2A060B" />
+      <stop offset="100%" stop-color="#140205" />
+    </radialGradient>
+    <radialGradient id="diyaLight" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFDF73" stop-opacity="0.35" />
+      <stop offset="50%" stop-color="#D4AF37" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#AA771C" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="goldTrim" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C59B27" />
+      <stop offset="50%" stop-color="#FDF0CD" />
+      <stop offset="100%" stop-color="#AA771C" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bgGlow)"/>
+  
+  <!-- Festive Mandala Overlay (Subtle) -->
+  <g transform="translate(600, 400)" opacity="0.07" stroke="url(#goldTrim)" stroke-width="1.5" fill="none">
+    <circle r="360" />
+    <circle r="280" stroke-dasharray="10 15" />
+    <circle r="190" />
+    <circle r="110" />
+    <!-- Mandala rays -->
+    <path d="M0 -360 L0 360 M-360 0 L360 0 M-254 -254 L254 254 M-254 254 L254 -254" />
+  </g>
+  
+  <!-- Diya ambient glows -->
+  <circle cx="200" cy="700" r="160" fill="url(#diyaLight)" />
+  <circle cx="1000" cy="700" r="160" fill="url(#diyaLight)" />
+  <circle cx="600" cy="380" r="280" fill="url(#diyaLight)" />
+</svg>
