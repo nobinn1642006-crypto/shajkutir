@@ -38,7 +38,7 @@ window.products = [
     work_en: "Luminous Shimmer Texture",
     blouse_bn: "রানিং ব্লাউজ পিস অন্তর্ভুক্ত",
     blouse_en: "Running Blouse Piece Included",
-    stock: 10,
+    stock: 100,
     featured: true
   },
   {
