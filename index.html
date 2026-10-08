@@ -73,31 +73,6 @@
       <h1 class="showcase-title" data-i18n="hero_title">পূজার আভিজাত্যে ৫টি অনন্য শাড়ি</h1>
             <p class="showcase-sub" data-i18n="hero_subtitle">পছন্দের শাড়িতে ট্যাপ করে বিস্তারিত দেখুন ও ১-ক্লিকে অর্ডার করুন</p>
 
-      <!-- Puja Countdown Timer (Reference Design) -->
-      <div class="puja-timer-wrap" id="pujaTimerWrap" aria-label="Puja Countdown Timer">
-        <div class="timer-title" data-i18n="timer_title">পূজা শুরু হতে বাকি</div>
-        <div class="timer-boxes">
-          <div class="timer-box">
-            <span class="t-num" id="timerDays">০৮</span>
-            <span class="t-lbl" data-i18n="timer_days">দিন</span>
-          </div>
-          <span class="t-sep">:</span>
-          <div class="timer-box">
-            <span class="t-num" id="timerHours">০৩</span>
-            <span class="t-lbl" data-i18n="timer_hours">ঘণ্টা</span>
-          </div>
-          <span class="t-sep">:</span>
-          <div class="timer-box">
-            <span class="t-num" id="timerMins">৩১</span>
-            <span class="t-lbl" data-i18n="timer_mins">মিনিট</span>
-          </div>
-          <span class="t-sep">:</span>
-          <div class="timer-box">
-            <span class="t-num" id="timerSecs">৫০</span>
-            <span class="t-lbl" data-i18n="timer_secs">সেকেন্ড</span>
-          </div>
-        </div>
-      </div>
     </header>
 
     <!-- 3D Circular Orbit Saree Showcase (Reference Image Design) -->
@@ -107,12 +82,45 @@
         <!-- Dashed Orbit Ring -->
         <div class="orbit-track-ring" aria-hidden="true"></div>
 
-        <!-- Center Hub (Interactive Diya & Brand) -->
-        <div class="orbit-center-hub" id="orbitCenterHub" role="button" tabindex="0" title="সাজকুটির শারদীয় কালেকশন" aria-label="ShajKutir Center Hub">
-          <div class="hub-inner-circle">
-            <span class="hub-icon-wrap" aria-hidden="true">🪔</span>
-            <span class="hub-title" data-i18n="brand_name">সাজকুটির</span>
-            <span class="hub-subtitle" data-i18n="hero_badge">পূজা কালেকশন</span>
+        <!-- Center Hub (Animated Burning Diya) -->
+        <div class="orbit-center-hub" id="orbitCenterHub" role="button" tabindex="0" title="শুভ শারদীয়া - মঙ্গল প্রদীপ" aria-label="Festive Puja Diya Altar">
+          <div class="center-diya-wrap">
+            <div class="diya-aura-glow"></div>
+            <svg class="burning-diya-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="50" cy="32" r="22" fill="url(#flameAuraGrad)" opacity="0.6" class="flame-aura-anim"/>
+              <path class="flickering-flame" d="M50 12 C42 24 38 34 46 44 C48 46 52 46 54 44 C62 34 58 24 50 12 Z" fill="url(#centerFlameGrad)"/>
+              <path class="inner-core-flame" d="M50 22 C46 29 44 35 48 42 C49 43 51 43 52 42 C56 35 54 29 50 22 Z" fill="#FFFBE6"/>
+              <path d="M18 56 C18 78 82 78 82 56 C82 48 18 48 18 56 Z" fill="url(#centerBrassGrad)" stroke="#B38A20" stroke-width="1.5"/>
+              <ellipse cx="50" cy="50" rx="30" ry="7" fill="#3D000C"/>
+              <ellipse cx="50" cy="49" rx="26" ry="5" fill="url(#centerOilGrad)"/>
+              <path d="M38 74 L32 86 L68 86 L62 74 Z" fill="url(#centerBrassGrad)" stroke="#B38A20" stroke-width="1"/>
+              <ellipse cx="50" cy="86" rx="20" ry="4" fill="#8D6E12"/>
+              <defs>
+                <radialGradient id="flameAuraGrad" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#FFD700" stop-opacity="0.8"/>
+                  <stop offset="60%" stop-color="#FF5722" stop-opacity="0.3"/>
+                  <stop offset="100%" stop-color="#FF3D00" stop-opacity="0"/>
+                </radialGradient>
+                <linearGradient id="centerFlameGrad" x1="50" y1="12" x2="50" y2="44" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#FFFFFF"/>
+                  <stop offset="25%" stop-color="#FFF3A8"/>
+                  <stop offset="55%" stop-color="#FFB300"/>
+                  <stop offset="85%" stop-color="#FF3D00"/>
+                  <stop offset="100%" stop-color="#BF0000"/>
+                </linearGradient>
+                <linearGradient id="centerBrassGrad" x1="18" y1="48" x2="82" y2="86" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#FFE599"/>
+                  <stop offset="40%" stop-color="#D4AF37"/>
+                  <stop offset="80%" stop-color="#997015"/>
+                  <stop offset="100%" stop-color="#6B4E0A"/>
+                </linearGradient>
+                <linearGradient id="centerOilGrad" x1="24" y1="49" x2="76" y2="49" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#FF9800"/>
+                  <stop offset="50%" stop-color="#FFC107"/>
+                  <stop offset="100%" stop-color="#E65100"/>
+                </linearGradient>
+              </defs>
+            </svg>
           </div>
         </div>
 
@@ -188,6 +196,32 @@
       </div>
 
     </section>
+
+    <!-- Puja Countdown Timer (Reference Design) -->
+    <div class="puja-timer-wrap" id="pujaTimerWrap" aria-label="Puja Countdown Timer">
+      <div class="timer-title" data-i18n="timer_title">পূজা শুরু হতে বাকি</div>
+      <div class="timer-boxes">
+        <div class="timer-box">
+          <span class="t-num" id="timerDays">০৮</span>
+          <span class="t-lbl" data-i18n="timer_days">দিন</span>
+        </div>
+        <span class="t-sep">:</span>
+        <div class="timer-box">
+          <span class="t-num" id="timerHours">০৩</span>
+          <span class="t-lbl" data-i18n="timer_hours">ঘণ্টা</span>
+        </div>
+        <span class="t-sep">:</span>
+        <div class="timer-box">
+          <span class="t-num" id="timerMins">৩১</span>
+          <span class="t-lbl" data-i18n="timer_mins">মিনিট</span>
+        </div>
+        <span class="t-sep">:</span>
+        <div class="timer-box">
+          <span class="t-num" id="timerSecs">৫০</span>
+          <span class="t-lbl" data-i18n="timer_secs">সেকেন্ড</span>
+        </div>
+      </div>
+    </div>
 
     <!-- Trust Badges Bar -->
     <div class="trust-bar">

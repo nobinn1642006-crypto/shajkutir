@@ -12,7 +12,27 @@
  */
 
 var OWNER_EMAIL = "shajkutir@gmail.com"; // 👈 আপনার সক্রিয় জিমেইল দিন
-var SHEET_NAME = "Puja Orders 2026";
+var SPREADSHEET_ID = ""; // Optional: Set to a specific spreadsheet ID, otherwise uses active spreadsheet
+
+function getTargetSheet() {
+  var ss;
+  if (SPREADSHEET_ID && SPREADSHEET_ID.length > 0) {
+    ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  } else {
+    ss = SpreadsheetApp.getActiveSpreadsheet();
+  }
+  
+  // Get the first sheet tab by default (Sheet1)
+  var sheet = ss.getSheets()[0];
+  
+  // If the first sheet doesn't have the right headers, create it fresh
+  if (!sheet) {
+    sheet = ss.insertSheet("Sheet1");
+    setupSheetHeaders(sheet);
+  }
+  
+  return sheet;
+}
 
 function doPost(e) {
   var lock = LockService.getScriptLock();
@@ -72,13 +92,8 @@ function doPost(e) {
       });
     }
 
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var sheet = ss.getSheetByName(SHEET_NAME);
-    if (!sheet) {
-      sheet = ss.insertSheet(SHEET_NAME);
-      setupSheetHeaders(sheet);
-    }
-
+    var sheet = getTargetSheet();
+    
     var nextRow = sheet.getLastRow() + 1;
     
     // Formula for thumbnail preview in column W (Column 23) referencing Column T (Product Image URL)

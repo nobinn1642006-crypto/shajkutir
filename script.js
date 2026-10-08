@@ -49,8 +49,7 @@
       timer_hours: "ঘণ্টা",
       timer_mins: "মিনিট",
       timer_secs: "সেকেন্ড",
-      hub_title: "পূজা স্পেশাল",
-      hub_subtitle: "শাড়িতে ক্লিক করুন",
+      
       saree_s001_name: "রক্তিম জামদানি",
       saree_s002_name: "বেনারসি কাতান",
       saree_s003_name: "মসলিন সিল্ক",
@@ -127,8 +126,7 @@
       timer_hours: "Hours",
       timer_mins: "Mins",
       timer_secs: "Secs",
-      hub_title: "Puja Special",
-      hub_subtitle: "Tap to Explore",
+      
       saree_s001_name: "Crimson Jamdani",
       saree_s002_name: "Banarasi Katan",
       saree_s003_name: "Muslin Silk",
@@ -650,13 +648,44 @@
     el.modalMainImg.src = imgUrl;
     el.modalMainImg.onerror = function () { window.handleSmartImageFallback(this); };
 
-    // Update variant indicator badge
     if (el.selectedVariantText) {
       el.selectedVariantText.textContent = (state.lang === 'bn' ? 'নির্বাচিত: ' : 'Selected: ') + varName;
     }
 
     const thumbs = el.thumbnailsRow.querySelectorAll('.thumb-btn');
     thumbs.forEach((t, i) => t.classList.toggle('active', i === index));
+    
+    if (thumbs[index]) {
+      thumbs[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+  }
+
+  async function autoDetectExtraProductImages(product, onFound) {
+    const baseUrl = `images/products/${product.id}/`;
+    let detectedCount = 0;
+    const maxAttempts = 25;
+    const existingCount = product.images ? product.images.length : 0;
+    
+    for (let i = existingCount + 1; i <= existingCount + maxAttempts; i++) {
+      const imgUrl = `${baseUrl}${i}.webp`;
+      try {
+        const response = await fetch(imgUrl, { method: 'HEAD' });
+        if (response.ok || response.status === 200) {
+          detectedCount++;
+          const newItem = { 
+            url: imgUrl, 
+            name_bn: `${i} নং ডিজাইন`, 
+            name_en: `Design ${i}` 
+          };
+          if (onFound) onFound(newItem);
+        } else if (response.status === 404) {
+          break;
+        }
+      } catch (e) {
+        break;
+      }
+    }
+    return detectedCount > 0;
   }
 
   // --- Lightbox ---

@@ -4,6 +4,7 @@ if (typeof window === 'undefined') { var window = global; }
  * 
  * - Only high-performance, ultra-lightweight .webp images are used.
  * - Dynamic image support: You can add 4, 5, 6, 8, or more .webp images per saree!
+ * - Supports images as strings or objects: "path/to/img.webp" or { url, name_bn, name_en }
  * - Color / Design Variant Support: When customer taps a photo, that specific color/design
  *   is selected and its exact photo & name is recorded in Google Sheets and WhatsApp!
  */
@@ -175,14 +176,22 @@ window.ProductStore = {
   getAll: () => window.products.filter(p => p.active),
   getFeatured: () => window.products.filter(p => p.active && p.featured),
   getById: (id) => window.products.find(p => p.id === id),
-  // Helper to extract clean image url whether items are strings or objects
-  getImageUrl: (item) => (typeof item === 'string' ? item : item.url),
+  getImageUrl: (item) => {
+    if (!item) return '';
+    if (typeof item === 'string') return item;
+    return item.url || '';
+  },
   getImageName: (item, lang = 'bn') => {
+    if (!item) return lang === 'bn' ? 'ডিজাইন' : 'Design';
     if (typeof item === 'string') {
       const parts = item.split('/');
       return parts[parts.length - 1];
     }
     return lang === 'bn' ? (item.name_bn || item.name_en || 'ডিজাইন') : (item.name_en || item.name_bn || 'Design');
+  },
+  isImageUrl: (item) => {
+    if (typeof item === 'string') return true;
+    return item && typeof item.url === 'string';
   }
 };
 
