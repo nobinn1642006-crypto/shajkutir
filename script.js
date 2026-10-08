@@ -949,6 +949,9 @@
       showConfirmationModal(orderData);
       el.orderForm.reset();
 
+      // Track Meta Pixel Purchase Event
+      trackPurchaseEvent(totalAmount);
+
     } catch (err) {
       console.error('Order error:', err);
       el.orderSpinner.classList.add('hidden');
@@ -1191,6 +1194,18 @@
     }
 
     el.orderForm.addEventListener('submit', handleOrderSubmit);
+
+    // Meta Pixel Purchase Event Tracking
+    function trackPurchaseEvent(totalAmount) {
+      if (typeof fbq === 'function') {
+        fbq('track', 'Purchase', {
+          content_name: 'Shajkutir Saree',
+          content_type: 'product',
+          currency: 'BDT',
+          value: totalAmount
+        });
+      }
+    }
 
     // Setup Footer Contacts: Phone, Direct Gmail Compose, Facebook
     const phone = window.siteSettings?.supportPhone || '+880 1712-345678';
