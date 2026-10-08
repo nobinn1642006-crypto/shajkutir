@@ -409,6 +409,28 @@
       populateProductModal(state.selectedProduct);
       updateBillSummary();
     }
+    updateOrbitLabels();
+  }
+
+  // --- Orbit Label Update ---
+  function updateOrbitLabels() {
+    const cards = (el.orbitCards && el.orbitCards.length) ? el.orbitCards : document.querySelectorAll('.orbit-card');
+    const isBn = state.lang === 'bn';
+
+    cards.forEach((card) => {
+      const productId = card.getAttribute('data-id');
+      const product = window.ProductStore?.getById(productId) || (window.products && window.products.find(p => p.id === productId));
+      if (!product) return;
+
+      const labelName = card.querySelector('.label-name');
+      if (!labelName) return;
+
+      if (isBn) {
+        labelName.textContent = product.category_bn || product.name_bn || '';
+      } else {
+        labelName.textContent = product.category_en || product.name_en || '';
+      }
+    });
   }
 
   // --- ORBITAL CIRCULATING SHOWCASE ENGINE ---
@@ -1235,6 +1257,7 @@
     updatePujaCountdown();
     setInterval(updatePujaCountdown, 1000);
     setLanguage(state.lang);
+    updateOrbitLabels();
     initOrbitGestures();
     initLiveOrderTicker();
     initEvents();
