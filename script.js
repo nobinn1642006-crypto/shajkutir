@@ -949,8 +949,24 @@
       showConfirmationModal(orderData);
       el.orderForm.reset();
 
-      // Track Meta Pixel Purchase Event
-      trackPurchaseEvent(orderData);
+      if (typeof window.fbq === 'function') {
+  try {
+    let cleanTotal = 0;
+    if (typeof orderData !== 'undefined' && orderData.total) {
+      cleanTotal = parseFloat(String(orderData.total).replace(/[^\d.]/g, '')) || 0;
+    } else if (typeof totalAmount !== 'undefined') {
+      cleanTotal = parseFloat(String(totalAmount).replace(/[^\d.]/g, '')) || 0;
+    }
+    window.fbq('track', 'Purchase', {
+      value: cleanTotal,
+      currency: 'BDT',
+      content_type: 'product'
+    });
+    console.log('Meta Pixel Purchase fired successfully:', cleanTotal);
+  } catch (err) {
+    console.error('Pixel tracking error:', err);
+  }
+}
 
     } catch (err) {
       console.error('Order error:', err);
