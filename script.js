@@ -958,8 +958,8 @@
       cleanTotal = parseFloat(String(totalAmount).replace(/[^\d.]/g, '')) || 0;
     }
     window.fbq('track', 'Purchase', {
-      value: cleanTotal,
-      currency: 'BDT',
+      value: Number(cleanTotal),
+      currency: 'BDT'.trim().toUpperCase(),
       content_type: 'product'
     });
     console.log('Meta Pixel Purchase fired successfully:', cleanTotal);
