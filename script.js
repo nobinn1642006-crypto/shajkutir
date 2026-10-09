@@ -212,8 +212,6 @@
     // Orbital State
     orbitAngle: -Math.PI / 2, // Starts top item at 12 o'clock
     isOrbitPaused: false,
-    isDragging: false,
-    dragStartAngle: 0,
     orbitSpeed: 0.0035 // Smooth, gentle rotation
   };
 
@@ -411,26 +409,45 @@
       populateProductModal(state.selectedProduct);
       updateBillSummary();
     }
-    updateOrbitLabels();
+    syncOrbitCardsFromProducts();
   }
 
   // --- Orbit Label Update ---
   function updateOrbitLabels() {
-    const cards = (el.orbitCards && el.orbitCards.length) ? el.orbitCards : document.querySelectorAll('.orbit-card');
+    syncOrbitCardsFromProducts();
+  }
+
+  // Universal Dynamic Sync for ALL 5 Orbit Cards directly from data/products.js
+  function syncOrbitCardsFromProducts() {
+    const cards = document.querySelectorAll('.orbit-card');
+    const prods = window.products || [];
     const isBn = state.lang === 'bn';
 
     cards.forEach((card) => {
-      const productId = card.getAttribute('data-id');
-      const product = window.ProductStore?.getById(productId) || (window.products && window.products.find(p => p.id === productId));
-      if (!product) return;
+      const pid = card.getAttribute('data-id');
+      const p = prods.find(item => item.id === pid);
+      if (!p) return;
 
+      // 1. Force Category / Name to sync directly from products.js
       const labelName = card.querySelector('.label-name');
-      if (!labelName) return;
+      if (labelName) {
+        labelName.removeAttribute('data-i18n');
+        labelName.textContent = isBn ? (p.category_bn || p.name_bn) : (p.category_en || p.name_en);
+      }
 
-      if (isBn) {
-        labelName.textContent = product.category_bn || product.name_bn || '';
-      } else {
-        labelName.textContent = product.category_en || product.name_en || '';
+      // 2. Force Price to sync directly from products.js
+      const labelPrice = card.querySelector('.label-price');
+      if (labelPrice && typeof p.price !== 'undefined') {
+        labelPrice.textContent = formatMoney(p.price);
+      }
+
+      // 3. Force First Image Thumbnail to sync directly from products.js
+      const img = card.querySelector('.orbit-card-img');
+      if (img && p.images && p.images.length > 0) {
+        const firstImg = window.ProductStore?.getImageUrl(p.images[0]) || (typeof p.images[0] === 'string' ? p.images[0] : p.images[0].url);
+        if (firstImg && img.getAttribute('src') !== firstImg) {
+          img.src = firstImg;
+        }
       }
     });
   }
@@ -472,7 +489,7 @@
 
   function startOrbitLoop() {
     function tick() {
-      if (!state.isOrbitPaused && !state.isDragging && el.productModal.classList.contains('hidden') && el.orderModal.classList.contains('hidden') && !state.lightboxOpen) {
+      if (!state.isOrbitPaused && el.productModal.classList.contains('hidden') && el.orderModal.classList.contains('hidden') && !state.lightboxOpen) {
         state.orbitAngle += state.orbitSpeed;
         updateOrbitPositions();
       }
@@ -485,79 +502,8 @@
     const stage = el.orbitStageContainer;
     if (!stage) return;
 
-    let startX = 0;
-    let startY = 0;
-    let lastAngle = 0;
-
     stage.addEventListener('mouseenter', () => { state.isOrbitPaused = true; });
     stage.addEventListener('mouseleave', () => { state.isOrbitPaused = false; });
-
-    stage.addEventListener('touchstart', (e) => {
-      state.isOrbitPaused = true;
-      state.isDragging = true;
-      startX = e.touches[0].clientX;
-      startY = e.touches[0].clientY;
-      const rect = stage.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      lastAngle = Math.atan2(startY - centerY, startX - centerX);
-    }, { passive: true });
-
-    stage.addEventListener('touchmove', (e) => {
-      if (!state.isDragging) return;
-      const curX = e.touches[0].clientX;
-      const curY = e.touches[0].clientY;
-      const rect = stage.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const curAngle = Math.atan2(curY - centerY, curX - centerX);
-      const delta = curAngle - lastAngle;
-
-      state.orbitAngle += delta;
-      lastAngle = curAngle;
-      updateOrbitPositions();
-    }, { passive: true });
-
-    stage.addEventListener('touchend', () => {
-      state.isDragging = false;
-      setTimeout(() => { state.isOrbitPaused = false; }, 2500);
-    }, { passive: true });
-
-    // Desktop mouse drag rotation support
-    let isMouseDown = false;
-    stage.addEventListener('mousedown', (e) => {
-      if (e.target.closest('.orbit-card') || e.target.closest('.orbit-center-hub')) return;
-      isMouseDown = true;
-      state.isOrbitPaused = true;
-      startX = e.clientX;
-      startY = e.clientY;
-      const rect = stage.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      lastAngle = Math.atan2(startY - centerY, startX - centerX);
-    });
-
-    window.addEventListener('mousemove', (e) => {
-      if (!isMouseDown) return;
-      const curX = e.clientX;
-      const curY = e.clientY;
-      const rect = stage.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const curAngle = Math.atan2(curY - centerY, curX - centerX);
-      const delta = curAngle - lastAngle;
-
-      state.orbitAngle += delta;
-      lastAngle = curAngle;
-      updateOrbitPositions();
-    });
-
-    window.addEventListener('mouseup', () => {
-      if (isMouseDown) {
-        isMouseDown = false;
-        setTimeout(() => { state.isOrbitPaused = false; }, 2000);
-      }
-    });
 
     if (el.orbitCenterHub) {
       el.orbitCenterHub.addEventListener('click', () => {
