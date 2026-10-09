@@ -51,7 +51,7 @@ window.siteSettings = {
   // Delivery Charges (in BDT)
   deliveryFees: {
     insideDhaka: 70,
-    outsideDhaka: 130
+    outsideDhaka: 120
   },
 
   // Payment & Advance Delivery Charge Configuration
