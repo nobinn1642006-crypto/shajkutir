@@ -25,6 +25,8 @@ window.siteSettings = {
 
   // Official Facebook Page
   facebookPage: "https://www.facebook.com/shajkutir.store",
+  messengerUsername: "shajkutir",
+  messengerUrl: "https://m.me/shajkutir.store",
 
   // WhatsApp Support Number (without +, e.g. 8801712345678)
   whatsappNumber: "8801712345678",

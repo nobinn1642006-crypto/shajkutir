@@ -66,11 +66,11 @@
       spec_work: "কারুকাজ / Work:",
       spec_blouse: "ব্লাউজ / Blouse:",
       btn_order_saree: "এই শাড়িটি অর্ডার করুন",
-      btn_ask_whatsapp: "WhatsApp-এ জানুন",
+      btn_ask_whatsapp: "Messenger-এ জানুন",
       order_panel_title: "ডেলিভারি তথ্য দিন",
       order_panel_subtitle: "কোন অগ্রিম পেমেন্টের প্রয়োজন নেই। শাড়ি হাতে পেয়ে মূল্য পরিশোধ করুন।",
       form_name: "আপনার নাম",
-      form_phone: "মোবাইল নম্বর (WhatsApp)",
+      form_phone: "মোবাইল নম্বর",
       form_address: "সম্পূর্ণ ডেলিভারি ঠিকানা",
       form_area: "ডেলিভারি এলাকা ও চার্জ",
       area_dhaka: "ঢাকার ভিতরে (চার্জ: ৳৭০)",
@@ -99,7 +99,7 @@
       err_name: "অনুগ্রহ করে আপনার নাম লিখুন।",
       err_phone: "সঠিক ১১ ডিজিটের মোবাইল নম্বর দিন (যেমন: 01712345678)।",
       err_address: "অনুগ্রহ করে সম্পূর্ণ ঠিকানা লিখুন।",
-      err_submission: "অর্ডার পাঠাতে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন অথবা WhatsApp-এ যোগাযোগ করুন।",
+      err_submission: "অর্ডার পাঠাতে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন অথবা Messenger-এ যোগাযোগ করুন।",
       confirm_title: "অর্ডার সফলভাবে গ্রহণ করা হয়েছে! 🎉",
       confirm_order_no_lbl: "অর্ডার নম্বর:",
       confirm_item: "শাড়ির নাম:",
@@ -110,8 +110,9 @@
       confirm_total: "সর্বমোট মূল্য:",
       confirm_cod_due: "কুরিয়ারে প্রদেয় (COD):",
       confirm_reminder: "আমরা খুব শীঘ্রই আপনার ঠিকানায় শাড়ি পৌঁছে দেওয়ার জন্য ফোনে যোগাযোগ করব। ধন্যবাদ!",
-      confirm_wa_btn: "WhatsApp-এ মেসেজ পাঠান",
+      confirm_wa_btn: "Messenger-এ চ্যাট করুন",
       confirm_close_btn: "হোমপেজে ফিরে যান",
+      messenger_tooltip: "মেসেজ দিন",
       save_prefix: "Save "
     },
     en: {
@@ -143,11 +144,11 @@
       spec_work: "Craft / Work:",
       spec_blouse: "Blouse Piece:",
       btn_order_saree: "Order This Saree",
-      btn_ask_whatsapp: "Inquire on WhatsApp",
+      btn_ask_whatsapp: "Chat with Messenger",
       order_panel_title: "Enter Delivery Info",
       order_panel_subtitle: "No advance payment needed. Pay in cash upon delivery.",
       form_name: "Your Full Name",
-      form_phone: "Mobile Number (WhatsApp)",
+      form_phone: "Mobile Number",
       form_address: "Full Delivery Address",
       form_area: "Delivery Area & Fee",
       area_dhaka: "Inside Dhaka (Fee: ৳70)",
@@ -176,7 +177,7 @@
       err_name: "Please enter your name.",
       err_phone: "Please enter valid 11-digit mobile number.",
       err_address: "Please enter full address.",
-      err_submission: "Error submitting order. Please try again or order on WhatsApp.",
+      err_submission: "Error submitting order. Please try again or contact us via Messenger.",
       confirm_title: "Order received successfully! 🎉",
       confirm_order_no_lbl: "Order Number:",
       confirm_item: "Product Name:",
@@ -187,8 +188,9 @@
       confirm_total: "Total Payable:",
       confirm_cod_due: "Payable on Delivery:",
       confirm_reminder: "We will contact you shortly to arrange delivery. Thank you!",
-      confirm_wa_btn: "Send Message on WhatsApp",
+      confirm_wa_btn: "Chat on Messenger",
       confirm_close_btn: "Back to Home",
+      messenger_tooltip: "Send Message",
       save_prefix: "Save "
     }
   };
@@ -333,8 +335,8 @@
     footerEmailDisplay: document.getElementById('footerEmailDisplay'),
     footerFbLink: document.getElementById('footerFbLink'),
 
-    // Floating WhatsApp
-    floatingWABtn: document.getElementById('floatingWABtn'),
+    // Floating Messenger
+    floatingMessengerBtn: document.getElementById('floatingMessengerBtn'),
 
     // Size Guide Modal
     btnOpenSizeGuide: document.getElementById('btnOpenSizeGuide'),
@@ -648,12 +650,12 @@
     // Set initial active variant view
     updateModalMainImage(state.activeImageIndex || 0);
 
-    // WhatsApp Inquiry link
-    const waNumber = window.siteSettings?.whatsappNumber || '8801712345678';
+    // Messenger Inquiry link
+    const messengerUrl = window.siteSettings?.messengerUrl || 'https://m.me/shajkutir';
     const waMsg = isBn
       ? `হ্যালো ShajKutir, আমি ${product.name_bn} (${product.id}) শাড়িটি সম্পর্কে জানতে চাই।`
       : `Hello ShajKutir, I am interested in ${product.name_en} (${product.id}).`;
-    if (el.modalWhatsAppInquiryBtn) { el.modalWhatsAppInquiryBtn.setAttribute('href', `https://wa.me/${waNumber}?text=${encodeURIComponent(waMsg)}`); }
+    if (el.modalWhatsAppInquiryBtn) { el.modalWhatsAppInquiryBtn.setAttribute('href', `${messengerUrl}?text=${encodeURIComponent(waMsg)}`); }
   }
 
   function updateModalMainImage(index) {
@@ -1015,13 +1017,13 @@
       }
     }
 
-    const waNum = window.siteSettings?.whatsappNumber || '8801712345678';
+    const messengerUrl = window.siteSettings?.messengerUrl || 'https://m.me/shajkutir';
     const waText = state.lang === 'bn'
       ? `*নতুন শাড়ি অর্ডার (ShajKutir)*\nঅর্ডার কোড: ${data.orderId}\nশাড়ি: ${data.productName}\nনির্বাচিত ডিজাইন: ${data.selectedVariant}\nমোট বিল: ${formatMoney(data.totalAmount)}\nগ্রাহক: ${data.customerName}\nফোন: ${data.phone}`
       : `*New Saree Order (ShajKutir)*\nOrder ID: ${data.orderId}\nProduct: ${data.productName}\nSelected Variant: ${data.selectedVariant}\nTotal: ${formatMoney(data.totalAmount)}\nName: ${data.customerName}\nPhone: ${data.phone}`;
 
     if (el.confirmWABtn) {
-      el.confirmWABtn.setAttribute('href', `https://wa.me/${waNum}?text=${encodeURIComponent(waText)}`);
+      el.confirmWABtn.setAttribute('href', `${messengerUrl}?text=${encodeURIComponent(waText)}`);
     }
     if (el.confirmPhoneBtn) {
       const phone = window.siteSettings?.supportPhone || '+8801712345678';
@@ -1246,9 +1248,9 @@
       el.footerFbLink.href = fbUrl;
     }
 
-    // Floating WhatsApp
-    const waNum = window.siteSettings?.whatsappNumber || '8801712345678';
-    if (el.floatingWABtn) el.floatingWABtn.setAttribute('href', `https://wa.me/${waNum}`);
+    // Floating Messenger
+    const messengerUrl = window.siteSettings?.messengerUrl || 'https://m.me/shajkutir';
+    if (el.floatingMessengerBtn) el.floatingMessengerBtn.setAttribute('href', messengerUrl);
   }
 
   // --- Initializer ---

@@ -372,6 +372,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </button>
           </div>
 
+          <!-- Messenger Inquiry Button -->
+          <a href="https://m.me/shajkutir" class="btn btn-outline-secondary btn-messenger-inquiry full-width" id="modalWhatsAppInquiryBtn" target="_blank" rel="noopener">
+            <span data-i18n="btn_ask_whatsapp">Messenger-এ জানুন</span>
+          </a>
+
         </div>
 
       </div>
@@ -472,7 +477,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- Phone -->
         <div class="input-group">
           <label for="customerPhone" class="input-label">
-            <span data-i18n="form_phone">মোবাইল নম্বর (WhatsApp)</span> <span class="req">*</span>
+            <span data-i18n="form_phone">মোবাইল নম্বর</span> <span class="req">*</span>
           </label>
           <input type="tel" id="customerPhone" name="customerPhone" class="form-field" placeholder="017XXXXXXXX" required autocomplete="tel" data-i18n-placeholder="placeholder_phone">
           <span class="field-error hidden" id="errPhone" data-i18n="err_phone">সঠিক ১১ ডিজিটের মোবাইল নম্বর দিন (যেমন: 01712345678)।</span>
@@ -654,6 +659,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <a href="tel:+8801712345678" class="btn btn-secondary confirm-phone-btn" id="confirmPhoneBtn">
           <span>📞 হেল্পলাইনে কল করুন</span>
         </a>
+        <a href="https://m.me/shajkutir" class="btn btn-primary confirm-wa-btn" id="confirmWABtn" target="_blank" rel="noopener">
+          <span data-i18n="confirm_wa_btn">Messenger-এ চ্যাট করুন</span>
+        </a>
         <button type="button" class="btn btn-primary" id="btnConfirmClose" data-i18n="confirm_close_btn">হোমপেজে ফিরে যান</button>
       </div>
     </div>
@@ -679,6 +687,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <button type="button" class="toast-close" id="btnCloseToast" aria-label="Close notification">✕</button>
   </div>
+
+  <!-- Floating Facebook Messenger Chat Widget (Official Branding) -->
+  <a href="https://m.me/shajkutir" target="_blank" rel="noopener noreferrer" class="floating-messenger" id="floatingMessengerBtn" title="মেসেঞ্জারে চ্যাট করুন" aria-label="Chat with ShajKutir on Facebook Messenger">
+    <svg class="msgr-icon" viewBox="0 0 36 36" width="32" height="32" aria-hidden="true">
+      <path fill="#FFFFFF" stroke="none" d="M18 3C9.716 3 3 9.324 3 17.11c0 4.436 2.196 8.397 5.626 10.957v5.433l5.148-2.825c1.353.375 2.784.577 4.226.577 8.284 0 15-6.324 15-14.11S26.284 3 18 3zm1.597 19.006l-3.957-4.223-7.72 4.223 8.487-9.01 4.043 4.223 7.635-4.223-8.488 9.01z"/>
+    </svg>
+    <span class="msgr-tooltip" data-i18n="messenger_tooltip">মেসেজ দিন</span>
+  </a>
 
   <!-- Scripts -->
   <script src="data/siteSettings.js"></script>

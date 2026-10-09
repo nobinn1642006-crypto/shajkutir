@@ -730,26 +730,50 @@ button {
   color: var(--color-text-muted);
 }
 
-/* --- FLOATING WHATSAPP --- */
-.floating-whatsapp {
+/* --- FLOATING FACEBOOK MESSENGER --- */
+.floating-messenger {
   position: fixed;
   bottom: 20px;
   right: 18px;
   z-index: 900;
-  width: 52px;
-  height: 52px;
-  background: #25D366;
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #1877F2 0%, #00E5FF 50%, #00C2FF 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
-  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
-  transition: transform 0.25s ease;
+  box-shadow: 0 6px 20px rgba(24, 119, 242, 0.4);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.floating-whatsapp:hover {
+.floating-messenger:hover {
   transform: scale(1.08);
+  box-shadow: 0 8px 25px rgba(24, 119, 242, 0.5);
+}
+
+.msgr-icon {
+  display: block;
+}
+
+.msgr-tooltip {
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.floating-messenger:hover .msgr-tooltip {
+  opacity: 1;
 }
 
 /* --- PRODUCT DETAILS MODAL --- */
@@ -1477,9 +1501,20 @@ button {
 }
 
 .confirm-wa-btn {
-  background: #25D366;
-  border-color: #25D366;
+  background: #1877F2;
+  border-color: #1877F2;
   color: #fff;
+}
+
+/* Messenger Inquiry Button (Product Modal) */
+.btn-messenger-inquiry {
+  background: #fff;
+  border: 1.5px solid #1877F2;
+  color: #1877F2;
+}
+
+.btn-messenger-inquiry:hover {
+  background: #f0f0ff;
 }
 
 /* Lightbox */
