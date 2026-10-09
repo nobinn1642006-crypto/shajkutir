@@ -950,7 +950,7 @@
       el.orderForm.reset();
 
       // Track Meta Pixel Purchase Event
-      trackPurchaseEvent(totalAmount);
+      trackPurchaseEvent(orderData);
 
     } catch (err) {
       console.error('Order error:', err);
@@ -1196,15 +1196,15 @@
     el.orderForm.addEventListener('submit', handleOrderSubmit);
 
     // Meta Pixel Purchase Event Tracking
-    function trackPurchaseEvent(totalAmount) {
-      if (typeof fbq === 'function') {
-        fbq('track', 'Purchase', {
-          content_name: 'Shajkutir Saree',
-          content_type: 'product',
-          currency: 'BDT',
-          value: totalAmount
-        });
-      }
+    function trackPurchaseEvent(orderData) {
+      if (typeof window.fbq !== 'function') return;
+      const val = typeof orderData.total === 'number' ? orderData.total : parseFloat(String(orderData.total).replace(/[^\d.]/g, ''));
+      window.fbq('track', 'Purchase', {
+        value: val || 0,
+        currency: 'BDT',
+        content_type: 'product'
+      });
+      console.log('Meta Pixel Purchase fired:', val);
     }
 
     // Setup Footer Contacts: Phone, Direct Gmail Compose, Facebook
